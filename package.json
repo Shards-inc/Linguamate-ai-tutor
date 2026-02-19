@@ -150,7 +150,7 @@
     "jest-environment-jsdom": "^30.2.0",
     "lighthouse": "^12.8.2",
     "lint-staged": "^16.2.3",
-    "lottie-react-native": "7.2.2",
+    "lottie-react-native": "7.3.6",
     "lucide-react-native": "^0.475.0",
     "madge": "^6.0.0",
     "msw": "^2.11.3",
