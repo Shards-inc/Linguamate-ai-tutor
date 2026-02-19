@@ -153,8 +153,8 @@ importers:
         specifier: ~14.1.4
         version: 14.1.4(expo@53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0)))(graphql@16.11.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0))(react@19.2.0))
       expo-image:
-        specifier: ~2.1.6
-        version: 2.1.7(expo@53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0)))(graphql@16.11.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0))(react@19.2.0))(react-native-web@0.20.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0))(react@19.2.0)
+        specifier: ~3.0.11
+        version: 3.0.11(expo@53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0)))(graphql@16.11.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0))(react@19.2.0))(react-native-web@0.20.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0))(react@19.2.0)
       expo-image-picker:
         specifier: ~16.1.4
         version: 16.1.4(expo@53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0)))(graphql@16.11.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0))(react@19.2.0))
@@ -4705,8 +4705,8 @@ packages:
     peerDependencies:
       expo: '*'
 
-  expo-image@2.1.7:
-    resolution: {integrity: sha512-p2Gr8fP/YakFHHo4rbpJbRWwKNrZp1GzSD91WEG3ZYAbTVdTjheJ6gUxXgggFaxEbaY+4WeQ0c5j9tZq8+3cEg==}
+  expo-image@3.0.11:
+    resolution: {integrity: sha512-4TudfUCLgYgENv+f48omnU8tjS2S0Pd9EaON5/s1ZUBRwZ7K8acEr4NfvLPSaeXvxW24iLAiyQ7sV7BXQH3RoA==}
     peerDependencies:
       expo: '*'
       react: '*'
@@ -14074,7 +14074,7 @@ snapshots:
       expo: 53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0)))(graphql@16.11.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0))(react@19.2.0)
       expo-image-loader: 5.1.0(expo@53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0)))(graphql@16.11.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0))(react@19.2.0))
 
-  expo-image@2.1.7(expo@53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0)))(graphql@16.11.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0))(react@19.2.0))(react-native-web@0.20.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0))(react@19.2.0):
+  expo-image@3.0.11(expo@53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0)))(graphql@16.11.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0))(react@19.2.0))(react-native-web@0.20.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0))(react@19.2.0):
     dependencies:
       expo: 53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0)))(graphql@16.11.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.2.0))(react@19.2.0)
       react: 19.2.0
