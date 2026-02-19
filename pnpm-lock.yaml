@@ -48,8 +48,8 @@ importers:
         specifier: ^6.22.0
         version: 6.22.0(expo@53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4)))(graphql@16.11.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4))(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)
       '@shopify/flash-list':
-        specifier: ^2.1.0
-        version: 2.1.0(@babel/runtime@7.28.4)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)
+        specifier: ^2.2.2
+        version: 2.2.2(@babel/runtime@7.28.4)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)
       '@stardazed/streams-text-encoding':
         specifier: ^1.0.2
         version: 1.0.2
@@ -2521,8 +2521,8 @@ packages:
     resolution: {integrity: sha512-cYcl39+xcOivBpN9d8ZKbALl+DxZKo/8H0nueJZ0PO4JA+MJGhSm6oHakXxLPaiMoNLTX7yor8ndnQIuFg+vmQ==}
     engines: {node: '>=14.18'}
 
-  '@shopify/flash-list@2.1.0':
-    resolution: {integrity: sha512-/EIQlptG456yM5o9qNmNsmaZEFEOGvG3WGyb6GUAxSLlcKUGlPUkPI2NLW5wQSDEY4xSRa5zocUI+9xwmsM4Kg==}
+  '@shopify/flash-list@2.2.2':
+    resolution: {integrity: sha512-YrvLBK5FCpvuX+d9QvJvjVqyi4eBUaEamkyfh9CjPdF6c+AukP0RSBh97qHyTwOEaVq21A5ukwgyWMDIbmxpmQ==}
     peerDependencies:
       '@babel/runtime': '*'
       react: '*'
@@ -11679,7 +11679,7 @@ snapshots:
     dependencies:
       '@sentry/core': 8.55.0
 
-  '@shopify/flash-list@2.1.0(@babel/runtime@7.28.4)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)':
+  '@shopify/flash-list@2.2.2(@babel/runtime@7.28.4)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@babel/runtime': 7.28.4
       react: 19.2.4
