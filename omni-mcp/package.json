@@ -54,7 +54,7 @@
     "@opentelemetry/semantic-conventions": "^1.37.0",
     "dotenv": "^17.2.3",
     "express-rate-limit": "^8.1.0",
-    "fastify": "^5.6.1",
+    "fastify": "^5.7.3",
     "js-yaml": "^4.1.1",
     "opossum": "^9.0.0",
     "pino": "^10.1.0",
