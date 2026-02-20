@@ -127,7 +127,7 @@
     "expo-image": "~3.0.11",
     "expo-image-picker": "~16.1.4",
     "expo-linear-gradient": "~14.1.5",
-    "expo-linking": "~7.1.4",
+    "expo-linking": "~8.0.11",
     "expo-localization": "^17.0.7",
     "expo-location": "~18.1.4",
     "expo-notifications": "~0.31.4",
