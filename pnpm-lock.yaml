@@ -180,8 +180,8 @@ importers:
         specifier: ~13.1.7
         version: 13.1.7(expo@53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4)))(graphql@16.11.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4))
       expo-speech-recognition:
-        specifier: ^2.1.5
-        version: 2.1.5(expo@53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4)))(graphql@16.11.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4))(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)
+        specifier: ^3.1.0
+        version: 3.1.0(expo@53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4)))(graphql@16.11.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4))(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)
       expo-splash-screen:
         specifier: ~31.0.13
         version: 31.0.13(expo@53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4)))(graphql@16.11.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4))
@@ -4812,8 +4812,8 @@ packages:
       react-native-reanimated:
         optional: true
 
-  expo-speech-recognition@2.1.5:
-    resolution: {integrity: sha512-j4eS+bfUNv0r9bhbHmuspJiQYhIUEsTkHJ9ZfVYSQJRC9q8/uqPWojN9q8OpPO5+PQFHCgr54HJuMRhHHQgWkA==}
+  expo-speech-recognition@3.1.0:
+    resolution: {integrity: sha512-DgCvY42hbhGDxDKJD0WjgjZboPOXY58JNNQ+zaBQmB+3M2PR2tS8ZTP/yIwslbe30Cnw8yf5JBxrqkZFiLmewQ==}
     peerDependencies:
       expo: '*'
       react: '*'
@@ -14315,7 +14315,7 @@ snapshots:
       - react-native
       - supports-color
 
-  expo-speech-recognition@2.1.5(expo@53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4)))(graphql@16.11.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4))(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4):
+  expo-speech-recognition@3.1.0(expo@53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4)))(graphql@16.11.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4))(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4):
     dependencies:
       expo: 53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4)))(graphql@16.11.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)
       react: 19.2.4
