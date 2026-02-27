@@ -1,7 +1,7 @@
 
 MIT License
 
-Copyright (c) 2025 LinguaMate AI / Rork Inc. / Contributors
+Copyright (c) 2026 Shards-inc / LinguaMate AI / Rork Inc. / Contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
