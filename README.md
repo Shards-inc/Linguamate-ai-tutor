@@ -693,5 +693,5 @@ Backups: If persistent storage (DB) is later added, automate backups.
 
 📜 License
 
-Proprietary. © 2025 Rork. All rights reserved.
+Proprietary. © 2026 Shards-inc. All rights reserved.
 

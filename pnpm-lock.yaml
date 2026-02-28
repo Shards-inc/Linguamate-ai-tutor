@@ -279,8 +279,8 @@ importers:
         specifier: ^3.3.3
         version: 3.3.3(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)
       react-native-purchases:
-        specifier: ^9.5.3
-        version: 9.5.3(react-native-web@0.20.0(react-dom@19.2.0(react@19.2.4))(react@19.2.4))(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)
+        specifier: ^9.10.5
+        version: 9.10.5(react-native-web@0.20.0(react-dom@19.2.0(react@19.2.4))(react@19.2.4))(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)
       react-native-reanimated:
         specifier: ~3.17.4
         version: 3.17.5(@babel/core@7.28.4)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)
@@ -2320,14 +2320,14 @@ packages:
   '@react-navigation/routers@7.5.1':
     resolution: {integrity: sha512-pxipMW/iEBSUrjxz2cDD7fNwkqR4xoi0E/PcfTQGCcdJwLoaxzab5kSadBLj1MTJyT0YRrOXL9umHpXtp+Dv4w==}
 
-  '@revenuecat/purchases-js-hybrid-mappings@17.9.0':
-    resolution: {integrity: sha512-JRrKG69T+OT0RYtQzeNi2DI/8EieEiqcvWcatZGOyjJva8AaOLbgI3jghC6xOoR7d9iSDm0pSwhGn9Ey/pzQRA==}
+  '@revenuecat/purchases-js-hybrid-mappings@17.41.1':
+    resolution: {integrity: sha512-00T+PXH/2S3T8VmdOH1XZeC2OhIYWxw7YCOAssVHxxorU8JExowE7mlDcMOIb6lFCjAXQBj6t65TxmlHlkW3PA==}
 
-  '@revenuecat/purchases-js@1.14.0':
-    resolution: {integrity: sha512-SotJ9MznBZoq91nSxLl1Oqw42k6A3JU0d73/WFbppv1IG770Q8KhuAUo1SgZC62ERCuCHme5fEdER1ZI4x8y7A==}
+  '@revenuecat/purchases-js@1.26.2':
+    resolution: {integrity: sha512-10k0LL3cmlxe9gN2GfXBLmLR3ZtnQN7wKpDxzJn/JtRSC0Sq12+/msCIuAiBYRP1CKJv8JAVVEyvYufMDqVf9A==}
 
-  '@revenuecat/purchases-typescript-internal@17.9.0':
-    resolution: {integrity: sha512-w1y2HKJa/osHTn1j9lHILC0UT4BSXuNqBul4cnxIuxKupgZ3saO9Jg2cfyjkDLNc1jGwUbqDpfTii0KrkMiWwQ==}
+  '@revenuecat/purchases-typescript-internal@17.41.1':
+    resolution: {integrity: sha512-npyMpQPTcGjXpP8n5NQ4W6N0nc+zTXpb0HSQo6HL+3jNj2eH00EgS/Bzm0wOBtvQAjqINjl0q+Dl6ru/PCZxpw==}
 
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
@@ -3222,11 +3222,11 @@ packages:
     peerDependencies:
       ajv: ^8.8.2
 
-  ajv@6.12.6:
-    resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
+  ajv@6.14.0:
+    resolution: {integrity: sha512-IWrosm/yrn43eiKqkfkHis7QioDleaXQHdDVPKg0FSwwd/DuvyX79TZnFOnYpB7dcsFAMmtFztZuXPDvSePkFw==}
 
-  ajv@8.17.1:
-    resolution: {integrity: sha512-B/gBuNg5SiMTrPkC+A2+cW0RszwxYmn6VYxB/inlBStS5nx6xHIt/ehKRhIMhqusl7a8LjQoZnjCs5vhwxOQ1g==}
+  ajv@8.18.0:
+    resolution: {integrity: sha512-PlXPeEWMXMZ7sPYOHqmDyCJzcfNrUr3fGNKtezX14ykXOEIvyK81d+qydx89KY5O71FKMPaQ2vBfBFI5NHR63A==}
 
   anser@1.4.10:
     resolution: {integrity: sha512-hCv9AqTQ8ycjpSd3upOJd7vFwW1JaoYQ7tpham03GJ1ca8/65rqn0RpaWpItOAd6ylW9wAw6luXYPJIyPFVOww==}
@@ -3544,6 +3544,7 @@ packages:
   basic-ftp@5.0.5:
     resolution: {integrity: sha512-4Bcg1P8xhUuqcii/S0Z9wiHIrQVPMermM1any+MX5GeGD7faD3/msQUDGLol9wOcz4/jbg/WJnGqoJF6LiBdtg==}
     engines: {node: '>=10.0.0'}
+    deprecated: Security vulnerability fixed in 5.2.0, please upgrade
 
   better-opn@3.0.2:
     resolution: {integrity: sha512-aVNobHnJqLiUelTaHat9DZ1qM2w0C0Eym4LPI/3JxOnSokGVdsl1T1kN7TFvsEAD8G47A6VKQ0TVHqbBnYMJlQ==}
@@ -6127,8 +6128,8 @@ packages:
     resolution: {integrity: sha512-gvVijfZvn7R+2qyPX8mAuKcFGDf6Nc61GdvGafQsHL0sBIxfKzA+usWn4GFC/bk+QdwPUD4kWFJLhElipq+0VA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  lodash-es@4.17.21:
-    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+  lodash-es@4.17.23:
+    resolution: {integrity: sha512-kVI48u3PZr38HdYz98UmfPnXl2DXrpdctLrFLCd3kOx1xUkOmpFPx7gCWWM5MPkL/fD8zb+Ph0QzjGFs4+hHWg==}
 
   lodash.camelcase@4.3.0:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
@@ -7246,8 +7247,8 @@ packages:
       '@react-native-community/datetimepicker': '>=6.7.0'
       react-native: '>=0.65.0'
 
-  react-native-purchases@9.5.3:
-    resolution: {integrity: sha512-SqQPBUEAyVmGoEWPWn571zBvpHBkPbvnRCRgVCT8jseKtVed5Xp5cVuHn1wIuSCJH/dOQK+dfrAFaOt30eB6Ow==}
+  react-native-purchases@9.10.5:
+    resolution: {integrity: sha512-ofs33aTgdjyjUDZgCtCKYfvl4gBtJrOV77/SXyDzSxTttNjg+8BWGckF3ALfBg69uU65xrXsqfyU3U+Cl86IdQ==}
     peerDependencies:
       react: '>= 16.6.3'
       react-native: '>= 0.73.0'
@@ -9432,7 +9433,7 @@ snapshots:
   '@commitlint/config-validator@20.0.0':
     dependencies:
       '@commitlint/types': 20.0.0
-      ajv: 8.17.1
+      ajv: 8.18.0
 
   '@commitlint/ensure@20.0.0':
     dependencies:
@@ -9669,7 +9670,7 @@ snapshots:
 
   '@eslint/eslintrc@3.3.1':
     dependencies:
-      ajv: 6.12.6
+      ajv: 6.14.0
       debug: 4.4.3
       espree: 10.4.0
       globals: 14.0.0
@@ -11394,13 +11395,13 @@ snapshots:
     dependencies:
       nanoid: 3.3.11
 
-  '@revenuecat/purchases-js-hybrid-mappings@17.9.0':
+  '@revenuecat/purchases-js-hybrid-mappings@17.41.1':
     dependencies:
-      '@revenuecat/purchases-js': 1.14.0
+      '@revenuecat/purchases-js': 1.26.2
 
-  '@revenuecat/purchases-js@1.14.0': {}
+  '@revenuecat/purchases-js@1.26.2': {}
 
-  '@revenuecat/purchases-typescript-internal@17.9.0': {}
+  '@revenuecat/purchases-typescript-internal@17.41.1': {}
 
   '@rtsao/scc@1.1.0': {}
 
@@ -12455,23 +12456,23 @@ snapshots:
 
   agent-base@7.1.4: {}
 
-  ajv-formats@2.1.1(ajv@8.17.1):
+  ajv-formats@2.1.1(ajv@8.18.0):
     optionalDependencies:
-      ajv: 8.17.1
+      ajv: 8.18.0
 
-  ajv-keywords@5.1.0(ajv@8.17.1):
+  ajv-keywords@5.1.0(ajv@8.18.0):
     dependencies:
-      ajv: 8.17.1
+      ajv: 8.18.0
       fast-deep-equal: 3.1.3
 
-  ajv@6.12.6:
+  ajv@6.14.0:
     dependencies:
       fast-deep-equal: 3.1.3
       fast-json-stable-stringify: 2.1.0
       json-schema-traverse: 0.4.1
       uri-js: 4.4.1
 
-  ajv@8.17.1:
+  ajv@8.18.0:
     dependencies:
       fast-deep-equal: 3.1.3
       fast-uri: 3.1.0
@@ -14003,7 +14004,7 @@ snapshots:
       '@humanwhocodes/retry': 0.4.3
       '@types/estree': 1.0.8
       '@types/json-schema': 7.0.15
-      ajv: 6.12.6
+      ajv: 6.14.0
       chalk: 4.1.2
       cross-spawn: 7.0.6
       debug: 4.4.3
@@ -15961,7 +15962,7 @@ snapshots:
       js-library-detector: 6.7.0
       lighthouse-logger: 2.0.2
       lighthouse-stack-packs: 1.12.2
-      lodash-es: 4.17.21
+      lodash-es: 4.17.23
       lookup-closest-locale: 6.2.0
       metaviewport-parser: 0.3.0
       open: 8.4.2
@@ -16070,7 +16071,7 @@ snapshots:
     dependencies:
       p-locate: 6.0.0
 
-  lodash-es@4.17.21: {}
+  lodash-es@4.17.23: {}
 
   lodash.camelcase@4.3.0: {}
 
@@ -17282,10 +17283,10 @@ snapshots:
       prop-types: 15.8.1
       react-native: 0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4)
 
-  react-native-purchases@9.5.3(react-native-web@0.20.0(react-dom@19.2.0(react@19.2.4))(react@19.2.4))(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4):
+  react-native-purchases@9.10.5(react-native-web@0.20.0(react-dom@19.2.0(react@19.2.4))(react@19.2.4))(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4):
     dependencies:
-      '@revenuecat/purchases-js-hybrid-mappings': 17.9.0
-      '@revenuecat/purchases-typescript-internal': 17.9.0
+      '@revenuecat/purchases-js-hybrid-mappings': 17.41.1
+      '@revenuecat/purchases-typescript-internal': 17.41.1
       react: 19.2.4
       react-native: 0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4)
     optionalDependencies:
@@ -17680,9 +17681,9 @@ snapshots:
   schema-utils@4.3.3:
     dependencies:
       '@types/json-schema': 7.0.15
-      ajv: 8.17.1
-      ajv-formats: 2.1.1(ajv@8.17.1)
-      ajv-keywords: 5.1.0(ajv@8.17.1)
+      ajv: 8.18.0
+      ajv-formats: 2.1.1(ajv@8.18.0)
+      ajv-keywords: 5.1.0(ajv@8.18.0)
 
   secure-json-parse@4.1.0: {}
 
