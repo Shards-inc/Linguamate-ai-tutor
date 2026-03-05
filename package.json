@@ -129,7 +129,7 @@
     "expo-linear-gradient": "~14.1.5",
     "expo-linking": "~8.0.11",
     "expo-localization": "^17.0.7",
-    "expo-location": "~18.1.4",
+    "expo-location": "~55.1.2",
     "expo-notifications": "~0.31.4",
     "expo-router": "~5.0.7",
     "expo-speech": "~13.1.7",
