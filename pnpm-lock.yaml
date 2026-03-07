@@ -4308,10 +4308,6 @@ packages:
   end-of-stream@1.4.5:
     resolution: {integrity: sha512-ooEGc6HP26xXq/N+GCGOT0JKCLDGrq2bQUZrQ7gyrJiZANJ/8YDTxTpQBXGMn+WbIQXNVpyWymm7KYVICQnyOg==}
 
-  enhanced-resolve@5.19.0:
-    resolution: {integrity: sha512-phv3E1Xl4tQOShqSte26C7Fl84EwUdZsyOuSSk9qtAGyyQs2s3jJzComh+Abf4g187lUUAvH+H26omrqia2aGg==}
-    engines: {node: '>=10.13.0'}
-
   enhanced-resolve@5.20.0:
     resolution: {integrity: sha512-/ce7+jQ1PQ6rVXwe+jKEg5hW5ciicHwIQUagZkp6IufBoY3YDgdTTY1azVs0qoRgVmvsNB+rbjLJxDAeHHtwsQ==}
     engines: {node: '>=10.13.0'}
@@ -6970,10 +6966,6 @@ packages:
     resolution: {integrity: sha512-OCVPnIObs4N29kxTjzLfUryOkvZEq+pf8jTF0lg8E7uETuWHA+v7j3c/xJmiqpX450191LlmZfUKkXxkTry7nA==}
     engines: {node: ^10 || ^12 || >=14}
 
-  postcss@8.5.6:
-    resolution: {integrity: sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==}
-    engines: {node: ^10 || ^12 || >=14}
-
   postcss@8.5.8:
     resolution: {integrity: sha512-OW/rX8O/jXnm82Ey1k44pObPtdblfiuWnrd8X7GJ7emImCOstunGbXUpp7HdBrFQX6rJzn3sPT397Wp5aCwCHg==}
     engines: {node: ^10 || ^12 || >=14}
@@ -8033,8 +8025,8 @@ packages:
   tar-stream@3.1.7:
     resolution: {integrity: sha512-qJj60CXt7IU1Ffyc3NJMjh6EkuCFej46zUqJ4J7pqYlThyd9bO0XBTmcOIhSzZJVWfsLks0+nle/j538YAW9RQ==}
 
-  tar@7.5.9:
-    resolution: {integrity: sha512-BTLcK0xsDh2+PUe9F6c2TlRp4zOOBMTkoQHQIWSIzI0R7KG46uEwq4OPk2W7bZcprBMsuaeFsqwYr7pjh6CuHg==}
+  tar@7.5.10:
+    resolution: {integrity: sha512-8mOPs1//5q/rlkNSPcCegA6hiHJYDmSLEI8aMH/CdSQJNWztHC9WHNam5zdQlfpTwB9Xp7IBEsHfV5LKMJGVAw==}
     engines: {node: '>=18'}
 
   temp-dir@2.0.0:
@@ -9752,7 +9744,7 @@ snapshots:
       source-map-support: 0.5.21
       stacktrace-parser: 0.1.11
       structured-headers: 0.4.1
-      tar: 7.5.9
+      tar: 7.5.10
       terminal-link: 2.1.1
       undici: 6.23.0
       wrap-ansi: 7.0.0
@@ -13495,7 +13487,7 @@ snapshots:
     dependencies:
       debug: 4.4.3
       is-url: 1.2.4
-      postcss: 8.5.6
+      postcss: 8.5.8
       postcss-values-parser: 2.0.1
     transitivePeerDependencies:
       - supports-color
@@ -13503,8 +13495,8 @@ snapshots:
   detective-postcss@6.1.3:
     dependencies:
       is-url: 1.2.4
-      postcss: 8.5.6
-      postcss-values-parser: 6.0.2(postcss@8.5.6)
+      postcss: 8.5.8
+      postcss-values-parser: 6.0.2(postcss@8.5.8)
 
   detective-sass@3.0.2:
     dependencies:
@@ -13635,11 +13627,6 @@ snapshots:
   end-of-stream@1.4.5:
     dependencies:
       once: 1.4.0
-
-  enhanced-resolve@5.19.0:
-    dependencies:
-      graceful-fs: 4.2.11
-      tapable: 2.3.0
 
   enhanced-resolve@5.20.0:
     dependencies:
@@ -14506,7 +14493,7 @@ snapshots:
       app-module-path: 2.2.0
       commander: 2.20.3
       debug: 4.4.3
-      enhanced-resolve: 5.19.0
+      enhanced-resolve: 5.20.0
       is-relative-path: 1.0.2
       module-definition: 3.4.0
       module-lookup-amd: 7.0.1
@@ -16990,20 +16977,14 @@ snapshots:
       indexes-of: 1.0.1
       uniq: 1.0.1
 
-  postcss-values-parser@6.0.2(postcss@8.5.6):
+  postcss-values-parser@6.0.2(postcss@8.5.8):
     dependencies:
       color-name: 1.1.4
       is-url-superb: 4.0.0
-      postcss: 8.5.6
+      postcss: 8.5.8
       quote-unquote: 1.0.0
 
   postcss@8.4.49:
-    dependencies:
-      nanoid: 3.3.11
-      picocolors: 1.1.1
-      source-map-js: 1.2.1
-
-  postcss@8.5.6:
     dependencies:
       nanoid: 3.3.11
       picocolors: 1.1.1
@@ -18242,7 +18223,7 @@ snapshots:
     transitivePeerDependencies:
       - react-native-b4a
 
-  tar@7.5.9:
+  tar@7.5.10:
     dependencies:
       '@isaacs/fs-minipass': 4.0.1
       chownr: 3.0.0
