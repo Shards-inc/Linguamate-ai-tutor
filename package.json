@@ -138,7 +138,7 @@
     "expo-sqlite": "~15.2.14",
     "expo-status-bar": "~2.2.3",
     "expo-symbols": "~0.4.4",
-    "expo-system-ui": "~5.0.6",
+    "expo-system-ui": "~55.0.9",
     "expo-updates": "^29.0.12",
     "expo-web-browser": "^14.2.0",
     "framer-motion": "^12.23.22",
