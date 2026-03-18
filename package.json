@@ -76,7 +76,7 @@
     "postinstall": "node scripts/patch-expo-router.js && bash scripts/fix-react19-compatibility.sh"
   },
   "dependencies": {
-    "@axe-core/playwright": "^4.10.2",
+    "@axe-core/playwright": "^4.11.1",
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
     "@expo/vector-icons": "^14.1.0",
