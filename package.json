@@ -76,7 +76,7 @@
     "postinstall": "node scripts/patch-expo-router.js && bash scripts/fix-react19-compatibility.sh"
   },
   "dependencies": {
-    "@axe-core/playwright": "^4.10.2",
+    "@axe-core/playwright": "^4.11.1",
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
     "@expo/vector-icons": "^14.1.0",
@@ -135,7 +135,7 @@
     "expo-speech": "~13.1.7",
     "expo-speech-recognition": "^3.1.0",
     "expo-splash-screen": "~31.0.13",
-    "expo-sqlite": "~15.2.14",
+    "expo-sqlite": "~55.0.10",
     "expo-status-bar": "~2.2.3",
     "expo-symbols": "~0.4.4",
     "expo-system-ui": "~55.0.9",
@@ -179,7 +179,7 @@
     "uuid": "^13.0.0",
     "wait-on": "^9.0.1",
     "whatwg-url": "^15.1.0",
-    "zod": "^4.1.8",
+    "zod": "^4.3.6",
     "zustand": "^5.0.2"
   },
   "devDependencies": {
@@ -188,7 +188,7 @@
     "@expo/ngrok": "^4.1.0",
     "@jest/globals": "^30.2.0",
     "@storybook/addon-ondevice-actions": "^9.1.4",
-    "@storybook/addon-ondevice-controls": "^9.1.4",
+    "@storybook/addon-ondevice-controls": "^10.2.3",
     "@storybook/addon-ondevice-notes": "^9.1.4",
     "@storybook/react-native": "^9.1.4",
     "@testing-library/dom": "^10.4.1",
