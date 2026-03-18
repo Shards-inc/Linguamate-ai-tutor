@@ -186,8 +186,8 @@ importers:
         specifier: ~31.0.13
         version: 31.0.13(expo@53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4)))(graphql@16.12.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4))
       expo-sqlite:
-        specifier: ~15.2.14
-        version: 15.2.14(expo@53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4)))(graphql@16.12.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4))(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)
+        specifier: ~55.0.10
+        version: 55.0.10(expo@53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4)))(graphql@16.12.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4))(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)
       expo-status-bar:
         specifier: ~2.2.3
         version: 2.2.3(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)
@@ -4891,8 +4891,8 @@ packages:
     peerDependencies:
       expo: '*'
 
-  expo-sqlite@15.2.14:
-    resolution: {integrity: sha512-6tWnEE0fcir30/e7eVwjeC7eKdncfVnIgo2JvnKpRndedyiFMXLMyOQWNVGnuhnSrPV2BHvGGjLByS/j5VgH4w==}
+  expo-sqlite@55.0.10:
+    resolution: {integrity: sha512-yLQXkwcA0OVSKuL4t+a6vv+H/Klh8147n7hH75AN0MkC48p3Go7+6GM+3SFENeaBUsmOnOS3XSFxMxxj6PIg4g==}
     peerDependencies:
       expo: '*'
       react: '*'
@@ -14474,7 +14474,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  expo-sqlite@15.2.14(expo@53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4)))(graphql@16.12.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4))(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4):
+  expo-sqlite@55.0.10(expo@53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4)))(graphql@16.12.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4))(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4):
     dependencies:
       await-lock: 2.2.2
       expo: 53.0.23(@babel/core@7.28.4)(@expo/metro-runtime@5.0.4(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4)))(graphql@16.12.0)(react-native@0.79.1(@babel/core@7.28.4)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)
