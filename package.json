@@ -156,7 +156,7 @@
     "msw": "^2.12.10",
     "nativewind": "^4.1.23",
     "npm-run-all": "^4.1.5",
-    "pino": "^9.13.0",
+    "pino": "^10.3.1",
     "pino-pretty": "^13.1.1",
     "posthog-react-native": "^4.7.1",
     "prettier": "^3.6.2",
