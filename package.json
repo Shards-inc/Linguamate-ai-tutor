@@ -180,7 +180,7 @@
     "wait-on": "^9.0.1",
     "whatwg-url": "^15.1.0",
     "zod": "^4.3.6",
-    "zustand": "^5.0.2"
+    "zustand": "^5.0.12"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
