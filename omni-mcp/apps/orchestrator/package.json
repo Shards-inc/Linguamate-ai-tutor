@@ -22,10 +22,10 @@
     "@opentelemetry/exporter-prometheus": "^0.45.0",
     "@opentelemetry/exporter-jaeger": "^1.17.0",
     "prom-client": "^15.0.0",
-    "fastify": "^5.8.1",
+    "fastify": "^5.8.3",
     "@fastify/cors": "^8.4.0",
     "dotenv": "^16.3.0",
-    "express-rate-limit": "^7.1.0",
+    "express-rate-limit": "^8.0.2",
     "opossum": "^8.0.0"
   },
   "devDependencies": {
