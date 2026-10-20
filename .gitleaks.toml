@@ -1,150 +1,47 @@
 title = "Linguamate Gitleaks Configuration"
-version = "8.25.0"
 
-[allowlist]
-description = "False positives and test fixtures for Linguamate project"
-files = [
-  "tests/fixtures/.*",
-  "docs/snippets/.*",
-  "**/*.test.*",
-  "**/*.spec.*",
-  "**/__tests__/.*",
-  "**/test-utils/.*",
-  "**/coverage/.*",
-  "**/node_modules/.*",
-  "**/.git/.*",
-  "**/dist/.*",
-  "**/build/.*",
-  "**/.expo/.*",
-  "**/android/.*",
-  "**/ios/.*",
-  "**/web-build/.*"
-]
+# Default rules are required. A config that only defines [[rules]] replaces
+# the built-in rules, and the previous nested [allowlist.*] tables do not
+# decode on Gitleaks 8.25+ (this file failed to load on 8.30.1).
+[extend]
+useDefault = true
 
-# Allow common test patterns and dummy values
-regexes = [
-  # Test API keys and tokens
-  '''(?i)(test|dummy|fake|mock)_(api|token|key|secret)_[0-9a-f]{8,32}''',
-  '''(?i)(test|dummy|fake|mock)_(password|pwd|pass)_[0-9a-f]{8,32}''',
-  
-  # Common test patterns
-  '''(?i)test.*[0-9a-f]{32}''',
-  '''(?i)dummy.*[0-9a-f]{32}''',
-  '''(?i)example.*[0-9a-f]{32}''',
-  '''(?i)sample.*[0-9a-f]{32}''',
-  
-  # Public keys (safe to commit)
-  '''-----BEGIN PUBLIC KEY-----[\s\S]*-----END PUBLIC KEY-----''',
-  
-  # Common hash patterns that aren't secrets
-  '''[0-9a-f]{40}''',  # SHA-1 hashes (often used for git commits, not secrets)
-  '''[0-9a-f]{64}''',  # SHA-256 hashes (often used for checksums, not secrets)
-  
-  # Common test database URLs
-  '''postgresql://test:test@localhost:5432/test''',
-  '''mysql://test:test@localhost:3306/test''',
-  '''mongodb://test:test@localhost:27017/test''',
-  '''sqlite://.*test.*''',
-  
-  # Common test JWT tokens (obviously fake)
-  '''eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9\..*''',
-  '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\..*''',
-  
-  # Common test email patterns
-  '''test@example\.com''',
-  '''admin@test\.com''',
-  '''user@localhost''',
-  '''test@localhost''',
-  '''example@example\.com''',
-  
-  # Common test phone numbers
-  '''\+1-555-0123''',
-  '''555-0123''',
-  '''\+1-800-555-0199''',
-  
-  # Common test credit card patterns (Luhn test numbers)
-  '''4[0-9]{12}(?:[0-9]{3})?''',  # Visa test numbers
-  '''5[1-5][0-9]{14}''',           # MasterCard test numbers
-  '''3[47][0-9]{13}''',            # American Express test numbers
-  
-  # Expo/React Native specific patterns
-  '''expo://.*''',
-  '''exp://.*''',
-  '''rork://.*''',
-  
-  # Common development patterns
-  '''localhost:[0-9]+''',
-  '''127\.0\.0\.1:[0-9]+''',
-  '''0\.0\.0\.0:[0-9]+''',
-  
-  # Common test UUIDs
-  '''[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}''',
-  
-  # Common test API endpoints
-  '''https?://localhost:[0-9]+/.*''',
-  '''https?://127\.0\.0\.1:[0-9]+/.*''',
-  '''https?://api\.example\.com/.*''',
-  
-  # Common placeholder values
-  '''change_me.*''',
-  '''your_.*_here''',
-  '''<.*>''',
-  '''\$\{.*\}''',
-  
-  # Common test configuration values
-  '''development''',
-  '''test''',
-  '''staging''',
-  '''demo''',
-]
-
-# Allow specific file patterns that commonly contain test data
-[allowlist.paths]
+# Global allowlists are OR-matched. Keep them narrow: path filters for
+# generated and test trees, plus placeholder values. Do not allowlist secret
+# shapes (bare hashes, JWTs, PANs); those suppress real findings.
+[[allowlists]]
+description = "Generated trees, dependencies, and test fixtures"
 paths = [
-  "**/test/**",
-  "**/tests/**",
-  "**/__tests__/**",
-  "**/fixtures/**",
-  "**/mocks/**",
-  "**/stubs/**",
-  "**/examples/**",
-  "**/samples/**",
-  "**/demos/**",
-  "**/playground/**",
-  "**/sandbox/**",
-  "**/coverage/**",
-  "**/docs/**",
-  "**/README*",
-  "**/CHANGELOG*",
-  "**/LICENSE*",
-  "**/.env.example",
-  "**/app.json",
-  "**/eas.json",
-  "**/babel.config.*",
-  "**/jest.config.*",
-  "**/playwright.config.*",
-  "**/lighthouserc.*",
-  "**/commitlint.config.*",
-  "**/eslint.config.*"
+  '''(^|/)node_modules(/|$)''',
+  '''(^|/)\.git(/|$)''',
+  '''(^|/)dist(/|$)''',
+  '''(^|/)build(/|$)''',
+  '''(^|/)coverage(/|$)''',
+  '''(^|/)web-build(/|$)''',
+  '''(^|/)\.expo(/|$)''',
+  '''(^|/)android(/|$)''',
+  '''(^|/)ios(/|$)''',
+  '''(^|/)__tests__(/|$)''',
+  '''(^|/)tests?(/|$)''',
+  '''(^|/)fixtures(/|$)''',
+  '''(^|/)mocks(/|$)''',
+  '''(^|/)stubs(/|$)''',
+  '''\.(test|spec)\.[^/]+$''',
 ]
 
-# Specific allowlist for known safe patterns in this project
-[allowlist.commits]
-commits = [
-  # Add specific commit hashes that are known to contain false positives
-  # Example: "abc123def456"
+[[allowlists]]
+description = "Obvious placeholders and local test credentials"
+regexTarget = "secret"
+regexes = [
+  '''(?i)^(test|dummy|fake|mock)_(api|token|key|secret)_[0-9a-f]{8,32}$''',
+  '''(?i)^(test|dummy|fake|mock)_(password|pwd|pass)_[0-9a-f]{8,32}$''',
+  '''(?i)^(change_me|your_.+_here|<.*>|\$\{.*\})$''',
+  '''^postgresql://test:test@localhost:5432/test$''',
+  '''^mysql://test:test@localhost:3306/test$''',
+  '''^mongodb://test:test@localhost:27017/test$''',
+  '''(?i)^(test@example\.com|admin@test\.com|user@localhost|test@localhost|example@example\.com)$''',
 ]
 
-# Allowlist for specific secrets that are known to be safe
-[allowlist.secrets]
-secrets = [
-  # Add specific secret values that are known to be safe (be very careful here)
-  # Example: "sk_test_1234567890abcdef"
-]
-
-# Custom rules for this project
-[[rules]]
-id = "linguamate-specific"
-description = "Linguamate project specific patterns"
-regex = '''(?i)(rork|linguamate|expo|react-native).*[0-9a-f]{8,32}'''
-tags = ["linguamate", "expo", "react-native"]
+# No extra [[rules]]. The previous linguamate-specific pattern matched any
+# project name followed by hex (changelog lines, lockfile hashes) and hid
+# the default-rule results. Default rules from [extend].useDefault are the scan.

@@ -19,190 +19,201 @@ on:
   pull_request:
     branches: [main, develop]
 
+# contents: read is enough to checkout full history and run local scanners.
+permissions:
+  contents: read
+
 concurrency:
   group: test-security-dry-run-${{ github.ref }}
   cancel-in-progress: true
 
 env:
   NODE_VERSION: '20'
-  BUN_VERSION: 'latest'
+  # Pin the release asset itself. /releases/latest/download/<old filename>
+  # follows the latest tag and 404s once that filename is no longer published.
+  GITLEAKS_VERSION: '8.30.1'
+  GITLEAKS_SHA256: '551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb'
 
 jobs:
-  # Test Semgrep without API calls
   test-semgrep:
     name: 🔍 Test Semgrep
     runs-on: ubuntu-latest
-    if: github.event.inputs.security_tool == 'all' || github.event.inputs.security_tool == 'semgrep' || github.event_name == 'push'
+    timeout-minutes: 20
+    if: github.event_name != 'workflow_dispatch' || github.event.inputs.security_tool == 'all' || github.event.inputs.security_tool == 'semgrep'
     steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
 
-      - name: 🔍 Test Semgrep configuration
+      - name: Test Semgrep configuration
         run: |
-          echo "🔍 Testing Semgrep configuration..."
-          
-          # Check if .semgrep.yml exists
+          echo "Testing Semgrep configuration..."
           if [ -f ".semgrep.yml" ]; then
-            echo "✅ .semgrep.yml found"
-            cat .semgrep.yml
+            echo ".semgrep.yml found"
           else
-            echo "ℹ️  No .semgrep.yml found, checking for inline config"
+            echo "No .semgrep.yml found, checking for inline config"
           fi
 
-      - name: 🧪 Run Semgrep (dry run)
+      - name: Run Semgrep
         run: |
-          echo "🧪 Running Semgrep in test mode..."
-          
-          # Install Semgrep
           pip install semgrep
-          
-          # Run Semgrep with test configuration
-          echo "🔍 Running Semgrep scan..."
-          semgrep --config=auto --dry-run . || echo "⚠️  Semgrep dry run completed with warnings"
-          
-          # Test specific rules
-          echo "🔍 Testing specific security rules..."
-          semgrep --config=p/security-audit --dry-run . || echo "⚠️  Security audit rules test completed"
-          semgrep --config=p/secrets --dry-run . || echo "⚠️  Secrets detection test completed"
+          semgrep --config=auto --dry-run .
+          semgrep --config=p/security-audit --dry-run .
+          semgrep --config=p/secrets --dry-run .
 
-  # Test Gitleaks without API calls
   test-gitleaks:
     name: 🔍 Test Gitleaks
     runs-on: ubuntu-latest
-    if: github.event.inputs.security_tool == 'all' || github.event.inputs.security_tool == 'gitleaks' || github.event_name == 'push'
+    timeout-minutes: 20
+    if: github.event_name != 'workflow_dispatch' || github.event.inputs.security_tool == 'all' || github.event.inputs.security_tool == 'gitleaks'
     steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
+          persist-credentials: false
 
-      - name: 🔍 Test Gitleaks configuration
+      - name: Install Gitleaks
         run: |
-          echo "🔍 Testing Gitleaks configuration..."
-          
-          # Check if .gitleaks.toml exists
-          if [ -f ".gitleaks.toml" ]; then
-            echo "✅ .gitleaks.toml found"
-            cat .gitleaks.toml
-          else
-            echo "ℹ️  No .gitleaks.toml found, will use default rules"
-          fi
+          set -euo pipefail
+          asset="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          url="https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/${asset}"
+          curl -fsSL -o "${asset}" "${url}"
+          echo "${GITLEAKS_SHA256}  ${asset}" | sha256sum -c -
+          tar -xzf "${asset}" gitleaks
+          mkdir -p "${HOME}/.local/bin"
+          install -m 0755 gitleaks "${HOME}/.local/bin/gitleaks"
+          echo "${HOME}/.local/bin" >> "${GITHUB_PATH}"
+          rm -f "${asset}"
+          gitleaks version
 
-      - name: 🧪 Run Gitleaks (test mode)
+      - name: Run Gitleaks
         run: |
-          echo "🧪 Running Gitleaks in test mode..."
-          
-          # Download Gitleaks
-          wget -O gitleaks.tar.gz https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks_8.18.0_linux_x64.tar.gz
-          tar -xzf gitleaks.tar.gz
-          chmod +x gitleaks
-          
-          # Run Gitleaks with test configuration
-          echo "🔍 Running Gitleaks scan..."
-          ./gitleaks detect --source . --config .gitleaks.toml --verbose --redact || echo "⚠️  Gitleaks scan completed with warnings"
-          
-          # Test specific patterns
-          echo "🔍 Testing specific secret patterns..."
-          ./gitleaks detect --source . --config .gitleaks.toml --verbose --redact --no-git || echo "⚠️  Gitleaks pattern test completed"
+          set -euo pipefail
+          report="${RUNNER_TEMP}/gitleaks-report.json"
+          rm -f "${report}"
+          trap 'rm -f "${report}"' EXIT
+          set +e
+          gitleaks detect \
+            --source . \
+            --config .gitleaks.toml \
+            --redact \
+            --no-banner \
+            --log-level info \
+            --report-format json \
+            --report-path "${report}" \
+            --exit-code 1
+          status=$?
+          set -e
+          REPORT="${report}" python3 - <<'PY'
+          import collections
+          import json
+          import os
 
-  # Test CodeQL without API calls
+          path = os.environ["REPORT"]
+          findings = []
+          if os.path.exists(path) and os.path.getsize(path):
+              with open(path) as handle:
+                  data = json.load(handle)
+              if isinstance(data, list):
+                  findings = data
+
+          counts = collections.Counter(str(item.get("RuleID") or "unknown") for item in findings)
+          lines = [f"gitleaks findings: {len(findings)}", "count by rule:"]
+          for rule, count in sorted(counts.items()):
+              lines.append(f"  {rule}: {count}")
+          lines.append("locations (secret values omitted):")
+          for item in findings:
+              secret = str(item.get("Secret") or "")
+              match = str(item.get("Match") or "")
+              rule = item.get("RuleID") or "unknown"
+              file = item.get("File") or ""
+              commit = item.get("Commit") or ""
+              line = item.get("StartLine") if item.get("StartLine") is not None else ""
+              if secret not in ("", "REDACTED") or (match and "REDACTED" not in match):
+                  lines.append(f"  UNSAFE redaction rule={rule} file={file} commit={commit} line={line}")
+                  continue
+              lines.append(f"  rule={rule} file={file} commit={commit} line={line}")
+          text = "\n".join(lines) + "\n"
+          print(text, end="")
+          summary = os.environ.get("GITHUB_STEP_SUMMARY")
+          if summary:
+              with open(summary, "a") as handle:
+                  handle.write("## Gitleaks\n\n```\n")
+                  handle.write(text)
+                  handle.write("```\n")
+          PY
+          exit "${status}"
+
   test-codeql:
     name: 🔍 Test CodeQL
     runs-on: ubuntu-latest
-    if: github.event.inputs.security_tool == 'all' || github.event.inputs.security_tool == 'codeql' || github.event_name == 'push'
+    timeout-minutes: 10
+    if: github.event_name != 'workflow_dispatch' || github.event.inputs.security_tool == 'all' || github.event.inputs.security_tool == 'codeql'
     steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
 
-      - name: 🔍 Test CodeQL configuration
+      - name: Test CodeQL configuration
         run: |
-          echo "🔍 Testing CodeQL configuration..."
-          
-          # Check for CodeQL workflow files
+          echo "Testing CodeQL configuration..."
           if find .github/workflows -name "*.yml" -o -name "*.yaml" | xargs grep -l "codeql" > /dev/null; then
-            echo "✅ CodeQL workflows found"
-            find .github/workflows -name "*.yml" -o -name "*.yaml" | xargs grep -l "codeql"
+            echo "CodeQL workflows found"
           else
-            echo "ℹ️  No CodeQL workflows found"
+            echo "No CodeQL workflows found"
           fi
 
-      - name: 🧪 Test CodeQL setup (dry run)
+      - name: Test CodeQL setup
         run: |
-          echo "🧪 Testing CodeQL setup..."
-          
-          # Test CodeQL CLI if available
           if command -v codeql >/dev/null 2>&1; then
-            echo "✅ CodeQL CLI available"
-            codeql version || echo "⚠️  CodeQL version check failed"
+            codeql version
           else
-            echo "ℹ️  CodeQL CLI not available, testing with GitHub Actions"
+            echo "CodeQL CLI is not installed on this runner"
           fi
 
-  # Test NPM Audit without API calls
   test-npm-audit:
     name: 🔍 Test NPM Audit
     runs-on: ubuntu-latest
-    if: github.event.inputs.security_tool == 'all' || github.event.inputs.security_tool == 'npm-audit' || github.event_name == 'push'
+    timeout-minutes: 20
+    if: github.event_name != 'workflow_dispatch' || github.event.inputs.security_tool == 'all' || github.event.inputs.security_tool == 'npm-audit'
     steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
 
-      - name: 🏗️ Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: npm
 
-      - name: 🥟 Setup Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: ${{ env.BUN_VERSION }}
+      - name: Install dependencies
+        run: npm ci
 
-      - name: 📥 Install dependencies
+      # Fail on high and critical advisories. Moderate and low are printed
+      # by npm audit and do not fail the job. Same threshold as `npm run audit:ci`.
+      - name: npm audit
         run: |
-          if [ -f bun.lockb ]; then
-            bun install --frozen-lockfile
-          else
-            npm ci
-          fi
+          echo "npm audit threshold: high (fails on high and critical; moderate and low do not fail the job)"
+          npm run audit:ci
 
-      - name: 🧪 Run NPM Audit (test mode)
-        run: |
-          echo "🧪 Running NPM audit in test mode..."
-          
-          # Run npm audit with different severity levels
-          echo "🔍 Running npm audit (moderate and higher)..."
-          npm audit --audit-level=moderate || echo "⚠️  NPM audit completed with findings"
-          
-          echo "🔍 Running npm audit (high and higher)..."
-          npm audit --audit-level=high || echo "⚠️  NPM audit completed with findings"
-          
-          echo "🔍 Running npm audit (critical only)..."
-          npm audit --audit-level=critical || echo "⚠️  NPM audit completed with findings"
-          
-          # Generate audit report
-          echo "📊 Generating audit report..."
-          npm audit --json > audit-report.json || echo "⚠️  Audit report generation completed with warnings"
-          
-          if [ -f "audit-report.json" ]; then
-            echo "✅ Audit report generated"
-            echo "Report size: $(wc -c < audit-report.json) bytes"
-          fi
-
-  # Test security configuration validation
   test-security-config:
     name: 🔧 Test Security Configuration
     runs-on: ubuntu-latest
-    if: github.event.inputs.security_tool == 'all' || github.event_name == 'push'
+    timeout-minutes: 10
+    if: github.event_name != 'workflow_dispatch' || github.event.inputs.security_tool == 'all'
     steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
 
-      - name: 🔍 Validate security configuration files
+      - name: Validate security configuration files
         run: |
-          echo "🔍 Validating security configuration files..."
-          
-          # Check for security-related files
           security_files=(
             ".semgrep.yml"
             ".gitleaks.toml"
@@ -212,94 +223,41 @@ jobs:
             ".github/workflows/semgrep.yml"
             "package.json"
             "package-lock.json"
-            "bun.lockb"
           )
-          
           for file in "${security_files[@]}"; do
             if [ -f "$file" ]; then
-              echo "✅ $file found"
+              echo "found $file"
             else
-              echo "ℹ️  $file not found"
+              echo "missing $file"
             fi
           done
 
-      - name: 🔍 Check for security best practices
+      - name: Check for security best practices
         run: |
-          echo "🔍 Checking for security best practices..."
-          
-          # Check for .gitignore security
-          if [ -f ".gitignore" ]; then
-            echo "✅ .gitignore found"
-            if grep -q "\.env" .gitignore; then
-              echo "✅ .env files are ignored"
-            else
-              echo "⚠️  .env files might not be ignored"
-            fi
-          fi
-          
-          # Check for package.json security
-          if [ -f "package.json" ]; then
-            echo "✅ package.json found"
-            if grep -q "scripts" package.json; then
-              echo "✅ Scripts section found"
-            fi
+          if [ -f ".gitignore" ] && grep -q "\.env" .gitignore; then
+            echo ".env files are ignored"
+          else
+            echo ".gitignore does not mention .env"
+            exit 1
           fi
 
-  # Generate security test report
   security-test-report:
     name: 📊 Security Test Report
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     needs: [test-semgrep, test-gitleaks, test-codeql, test-npm-audit, test-security-config]
     if: always()
     steps:
-      - name: 📊 Generate security test report
+      - name: Generate security test report
         run: |
-          echo "# 🔒 Security Workflow Testing Report" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "## Test Results" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "| Test | Status |" >> $GITHUB_STEP_SUMMARY
-          echo "|------|--------|" >> $GITHUB_STEP_SUMMARY
-          echo "| Semgrep | ${{ needs.test-semgrep.result }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Gitleaks | ${{ needs.test-gitleaks.result }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| CodeQL | ${{ needs.test-codeql.result }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| NPM Audit | ${{ needs.test-npm-audit.result }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Security Config | ${{ needs.test-security-config.result }} |" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          
-          # Determine overall status
-          if [[ "${{ needs.test-semgrep.result }}" == "success" && "${{ needs.test-gitleaks.result }}" == "success" && "${{ needs.test-npm-audit.result }}" == "success" ]]; then
-            echo "✅ **Security workflows are properly configured!**" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "## Key Findings" >> $GITHUB_STEP_SUMMARY
-            echo "- ✅ Security tools are properly configured" >> $GITHUB_STEP_SUMMARY
-            echo "- ✅ No hardcoded API keys detected" >> $GITHUB_STEP_SUMMARY
-            echo "- ✅ Security scanning can run without API calls" >> $GITHUB_STEP_SUMMARY
-            echo "- ✅ Configuration files are valid" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "❌ **Security workflow issues found!**" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "## Issues Found" >> $GITHUB_STEP_SUMMARY
-            if [[ "${{ needs.test-semgrep.result }}" != "success" ]]; then
-              echo "- ❌ Semgrep test failed" >> $GITHUB_STEP_SUMMARY
-            fi
-            if [[ "${{ needs.test-gitleaks.result }}" != "success" ]]; then
-              echo "- ❌ Gitleaks test failed" >> $GITHUB_STEP_SUMMARY
-            fi
-            if [[ "${{ needs.test-codeql.result }}" != "success" ]]; then
-              echo "- ❌ CodeQL test failed" >> $GITHUB_STEP_SUMMARY
-            fi
-            if [[ "${{ needs.test-npm-audit.result }}" != "success" ]]; then
-              echo "- ❌ NPM Audit test failed" >> $GITHUB_STEP_SUMMARY
-            fi
-            if [[ "${{ needs.test-security-config.result }}" != "success" ]]; then
-              echo "- ❌ Security configuration test failed" >> $GITHUB_STEP_SUMMARY
-            fi
-          fi
-          
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "## Recommendations" >> $GITHUB_STEP_SUMMARY
-          echo "- Use GitHub secrets for all API keys" >> $GITHUB_STEP_SUMMARY
-          echo "- Test security tools with dry-run modes" >> $GITHUB_STEP_SUMMARY
-          echo "- Validate configuration files regularly" >> $GITHUB_STEP_SUMMARY
-          echo "- Use mock data for testing when possible" >> $GITHUB_STEP_SUMMARY
+          echo "# Security workflow results" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Test | Status |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|------|--------|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Semgrep | ${{ needs.test-semgrep.result }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Gitleaks | ${{ needs.test-gitleaks.result }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| CodeQL | ${{ needs.test-codeql.result }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| NPM Audit | ${{ needs.test-npm-audit.result }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Security Config | ${{ needs.test-security-config.result }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Gitleaks and npm audit fail the workflow when they find secrets or high/critical advisories." >> "$GITHUB_STEP_SUMMARY"

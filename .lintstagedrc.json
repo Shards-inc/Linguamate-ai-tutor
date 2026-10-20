@@ -7,6 +7,6 @@
     "prettier --write"
   ],
   "**/*": [
-    "gitleaks protect --staged --config .gitleaks.toml --verbose"
+    "gitleaks protect --staged --config .gitleaks.toml --redact"
   ]
 }
