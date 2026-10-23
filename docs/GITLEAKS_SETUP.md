@@ -59,9 +59,11 @@ git commit -m "feat: add new feature"
 ### CI/CD Pipeline
 
 #### GitHub Actions
-- **Workflow**: `.github/workflows/gitleaks.yml`
-- **Triggers**: PRs, pushes to main/develop, nightly schedule
-- **Reports**: SARIF format uploaded to GitHub Security tab
+- **Enforcing workflow**: `.github/workflows/test-security-workflows-dry-run.yml` (`test-gitleaks`)
+- **Install**: Gitleaks **8.30.1** from `releases/download/v8.30.1/`, SHA-256 pinned in the workflow (`551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb` for `linux_x64`). Do not download via `/releases/latest/` with a hard-coded older filename; that URL 404s.
+- **Scan**: full history (`actions/checkout` `fetch-depth: 0`) with `gitleaks detect --redact`. The JSON report is deleted in the same step. Logs list rule id, path, commit, and line only.
+- **Dependency audit**: the same workflow's `test-npm-audit` job runs `npm ci` then `npm run audit:ci` (`npm audit --audit-level=high`). High and critical advisories fail the job. Moderate and low do not.
+- **Other workflows**: `.github/workflows/gitleaks.yml` and `.github/workflows/security.yml` still call `gitleaks/gitleaks-action` and are not the enforcing scan.
 
 #### Security Workflow
 - **Workflow**: `.github/workflows/security.yml`
