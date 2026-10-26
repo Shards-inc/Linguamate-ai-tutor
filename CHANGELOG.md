@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+- Secret scanning in `.github/workflows/test-security-workflows-dry-run.yml` installs Gitleaks 8.30.1 from a versioned URL, verifies the published SHA-256, scans full git history, and redacts secret values. The job fails when findings remain.
+- `npm run audit:ci` (`npm audit --audit-level=high`) runs after a successful `npm ci` and fails the job on high or critical advisories. Moderate and low advisories are reported and do not fail that job.
+
 ### Added
 - Comprehensive testing infrastructure with Jest, Playwright, and MSW
 - Unit test coverage for schemas, utilities, and factories

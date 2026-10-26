@@ -163,7 +163,8 @@ npm run test:ci
 npm run e2e:ci
 
 # Security checks
-npm audit
+# Fails when any high or critical advisory is present. Moderate and low do not fail CI.
+npm run audit:ci
 bunx semgrep --config=.semgrep.yml
 
 # Build verification
